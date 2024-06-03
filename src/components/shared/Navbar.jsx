@@ -31,7 +31,7 @@ const Navbar = () => {
     </ul>
   </div> */}
   <div className="navbar-end">
-  <ul className="menu menu-horizontal gap-4 px-1 mr-4">
+  <ul className="menu menu-horizontal gap-4 px-1 mr-4 hidden lg:flex">
       {navs}
     </ul>
     <Link to='/login'><button  className="btn bg-[#6F42C1] text-white">Login</button> </Link>
