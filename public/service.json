@@ -1,0 +1,39 @@
+[
+    {
+        "title" : "Recruitment and Staffing Services",
+        "description" : "Comprehensive recruitment services including talent acquisition, screening, interviewing, and onboarding of new employees",
+        "image" : "https://i.ibb.co/2nv9yvG/service1.webp"
+    },
+    {
+        "title" : "Payroll Management",
+        "description" : "Handling payroll processing, tax calculations, direct deposits, and payroll compliance to ensure timely and accurate salary payments",
+        "image" : "https://i.ibb.co/k9pH9XF/service2.jpg"
+    },
+    {
+        "title" : "Employee Benefits Administration",
+        "description" : "Managing employee benefits programs such as health insurance, retirement plans, and other perks, including enrollment and claims processing",
+        "image" : "https://i.ibb.co/FKmqqLQ/service3.jpg"
+    },
+    {
+        "title" : "Performance Management",
+        "description" : "Implementing performance appraisal systems, conducting performance reviews, and developing performance improvement plans",
+        "image" : "https://i.ibb.co/zNNcPpJ/service4.jpg"
+    },
+    {
+        "title" : "Training and Development",
+        "description" : "Offering training programs, workshops, and e-learning courses to enhance employee skills and professional development",
+        "image" : "https://i.ibb.co/R0pkZbg/service5.webp"
+    },
+    {
+        "title" : "Employee Relations",
+        "description" : "Managing employee relations, conflict resolution, and grievance handling to maintain a positive work environment",
+        "image" : "https://i.ibb.co/Smx65m5/service6.jpg"
+    }
+
+]
+
+
+
+
+
+

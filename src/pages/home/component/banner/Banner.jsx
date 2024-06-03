@@ -9,7 +9,7 @@ AOS.init();
 
 const Banner = () => {
     return (
-        <div>
+        <div className="mb-8">
             
             
             <Swiper
