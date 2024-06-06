@@ -8,6 +8,7 @@ import Login from "../pages/login/layout/Login";
 import ErrorPage from "../pages/errorpage/Errorpage";
 import PrivateRoute from "./PrivateRoute";
 import WorkSheet from "../pages/dashboard/work-sheet/layout/WorkSheet";
+import PaymentHistory from "../pages/dashboard/payment-history/layout/PaymentHistory";
 
 export const router = createBrowserRouter([
     {
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
             {
             path: 'work-sheet',
             element: <WorkSheet></WorkSheet>
+        },
+        {
+            path: 'payment-history',
+            element: <PaymentHistory></PaymentHistory>
         }
     ]
     }
