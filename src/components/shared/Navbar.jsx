@@ -8,6 +8,8 @@ const Navbar = () => {
 
   const {user,logOutUser} = useContext(AuthContext);
 
+  // todo: image from data base in the navbar
+
   console.log(user)
   const handleSignOut = () => {
     logOutUser()

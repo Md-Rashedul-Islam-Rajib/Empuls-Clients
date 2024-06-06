@@ -77,7 +77,7 @@ const AuthProvider = ({children}) => {
                 unsubscribe();
             }
         },[])
-        console.log(createUser)
+       
     
         const authInfo = {
             user,

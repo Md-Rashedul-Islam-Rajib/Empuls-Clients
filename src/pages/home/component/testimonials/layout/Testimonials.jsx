@@ -1,17 +1,30 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import useAxiosPublic from '../../../../../hooks/useAxiosPublic';
+import { useQuery } from '@tanstack/react-query';
 
 const Testimonials = () => {
-
+    const axiosPublic = useAxiosPublic();
     const [testimonials, setTestimonials] = useState([]);
 
     useEffect(()=>{
-		axios.get('http://localhost:5000/testimonials')
+		axiosPublic.get('/testimonials')
 		.then(res=> {
 			setTestimonials(res.data)
 		})
 	},[])
 
+
+    // const fetchFunc = async () => {
+    //     const response = await axiosPublic.get('/services');
+    //     return response.data;
+    // }
+
+    // const { isPending, error, data } = useQuery({
+    //     queryKey: ['testimonials'],
+    //     queryFn: fetchFunc,
+    //   })
+    //   setTestimonials(data)
 
     return (
         <div>

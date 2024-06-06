@@ -4,12 +4,16 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import { FaEye, FaEyeSlash, FaGithub } from "react-icons/fa";
+import axios from "axios";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
+  const axiosPublic = useAxiosPublic();
+
   const { logInUser, setUser, googleSignin, githubSignin, user } = useContext(AuthContext);
-  console.log(user)
+  
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -41,7 +45,13 @@ const Login = () => {
     googleSignin()
       .then((result) => {
         setUser(result.user);
-        //   toast.success("Log in Successfully as " + result.user.email);
+        axiosPublic
+        .post("/users", {name:result?.user?.displayName, email:result?.user?.email, role: 'employee' })
+        .then((res) => {
+          if (res.data.insertedId) {
+            console.log('data inserted')
+          }
+        });
 
         navigate(destination);
       })
@@ -53,8 +63,17 @@ const Login = () => {
   const handleGithub = () => {
     githubSignin()
       .then((result) => {
-        setUser(result.user);
-        //   toast.success("Log in successfully with Github");
+        setUser(result?.user);
+        console.log(result?.user?.displayName ,result?.user?.email)
+
+        axiosPublic
+        .post("/users", {name:result?.user?.displayName, email:result?.user?.email, role: 'employee' })
+        .then((res) => {
+          if (res.data.insertedId) {
+            console.log('data inserted')
+          }
+        });
+       
 
         navigate(destination);
       })

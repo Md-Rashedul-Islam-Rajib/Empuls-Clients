@@ -1,17 +1,28 @@
 import { useEffect, useState } from 'react';
 import ServiceCard from '../component/ServiceCard';
-import axios from 'axios';
+
+import useAxiosPublic from '../../../../../hooks/useAxiosPublic';
+import { useQuery } from '@tanstack/react-query';
 
 const Services = () => {
-
+    const axiosPublic = useAxiosPublic();
     const [services, setServices] = useState([]);
 	useEffect(()=>{
-		axios.get('http://localhost:5000/services')
+		axiosPublic.get('/services')
 		.then(res=> {
 			setServices(res.data)
 		})
 	},[])
+    // const fetchFunc = async () => {
+    //     const response = await axiosPublic.get('/services');
+    //     return response.data;
+    // }
 
+    // const { isPending, error, data } = useQuery({
+    //     queryKey: ['services'],
+    //     queryFn: fetchFunc,
+    //   })
+    // setServices(data)
     return (
         <div className='my-8'>
             <div className='text-center text-4xl font-semibold my-8'>
