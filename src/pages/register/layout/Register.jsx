@@ -56,6 +56,7 @@ const Register = () => {
         bank_account_no: data.bank_account_no,
         salary: data.salary,
         designation: data.designation,
+        isVerified : false
       };
       createUser(email, password)
         .then((result) => {

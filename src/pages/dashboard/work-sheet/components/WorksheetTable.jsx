@@ -12,38 +12,33 @@ const WorksheetTable = () => {
 
         const axiosPublic = useAxiosPublic();
 
-        // const fetchFunc = async (email) => {
-        //     const { data } = await axiosPublic.get("/work-list", {
-        //         params: { email },
-        //     });
-        //     return data;
-        // };
+       
 
-        // const {data: workdata,refetch} = useQuery({
-        //     queryKey: ["workdata", user?.email],
-        //     queryFn: fetchFunc(user?.email),
-        //     enabled: !!user?.email, // Only fetch if the email exists
-        // });
-    
-        // // Function to call refetch when new data is added to the database
-        // const handleNewData = () => {
-        //     refetch();
-        // };
+        // const [workdata, setWorkdata] = useState([]);
 
-        const [workdata, setWorkdata] = useState([]);
+        // useEffect(() => {
+        //     axiosPublic
+        //       .get("/work-list", {
+        //         params: {
+        //           email: user.email,
+        //         },
+        //       })
+        //       .then((res) => {
+        //         setWorkdata(res.data);
+        //         console.log(res.data)
+        //       });
+        //   }, [user?.email]);
 
-        useEffect(() => {
-            axiosPublic
-              .get("/work-list", {
-                params: {
-                  email: user.email,
-                },
-              })
-              .then((res) => {
-                setWorkdata(res.data);
-                console.log(res.data)
+          const {  data : workdata = [],refetch } = useQuery({
+            queryKey: ['workdata'],
+            queryFn: async () => {
+              const response = await axiosPublic.get('/work-list',{
+                params : { email : user?.email}
               });
-          }, [user?.email]);
+              refetch()
+            return response.data;
+            }
+          })
 
     return (
         <div className="p-4">

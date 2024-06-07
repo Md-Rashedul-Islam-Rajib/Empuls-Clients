@@ -9,6 +9,7 @@ import ErrorPage from "../pages/errorpage/Errorpage";
 import PrivateRoute from "./PrivateRoute";
 import WorkSheet from "../pages/dashboard/work-sheet/layout/WorkSheet";
 import PaymentHistory from "../pages/dashboard/payment-history/layout/PaymentHistory";
+import EmployeeList from "../pages/dashboard/employee-list/layout/EmployeeList";
 
 export const router = createBrowserRouter([
     {
@@ -48,6 +49,10 @@ export const router = createBrowserRouter([
         {
             path: 'payment-history',
             element: <PaymentHistory></PaymentHistory>
+        },
+        {
+            path: 'employee-list',
+            element: <EmployeeList></EmployeeList>
         }
     ]
     }

@@ -6,10 +6,11 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../../../context/AuthProvider";
 import useAxiosPublic from "../../../../../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
+import { useQuery } from "@tanstack/react-query";
 const WorkSheetForm = () => {
   const { user } = useContext(AuthContext);
 
-  const [userInfo, setUserInfo] = useState(null);
+  // const [userInfo, setUserInfo] = useState(null);
 
   const axiosPublic = useAxiosPublic();
 
@@ -47,17 +48,29 @@ const WorkSheetForm = () => {
     })
   };
 
-  useEffect(() => {
-    axiosPublic
-      .get("/users", {
-        params: {
-          email: user.email,
-        },
-      })
-      .then((res) => {
-        setUserInfo(res.data);
+  const {  data : userInfo = [] } = useQuery({
+    queryKey: ['users'],
+    queryFn: async () => {
+      const response = await axiosPublic.get('/users',{
+        params : { email : user?.email}
       });
-  }, [user?.email]);
+    return response.data;
+    }
+  })
+  
+  // useEffect(() => {
+  //   axiosPublic
+  //     .get("/users", {
+  //       params: {
+  //         email: user.email,
+  //       },
+  //     })
+  //     .then((res) => {
+  //       setUserInfo(res.data);
+  //     });
+  // }, [user?.email]);
+
+  
 
   return (
     <div>

@@ -6,23 +6,26 @@ import { useQuery } from '@tanstack/react-query';
 
 const Services = () => {
     const axiosPublic = useAxiosPublic();
-    const [services, setServices] = useState([]);
-	useEffect(()=>{
-		axiosPublic.get('/services')
-		.then(res=> {
-			setServices(res.data)
-		})
-	},[])
+    // const [services, setServices] = useState([]);
+	// useEffect(()=>{
+	// 	axiosPublic.get('/services')
+	// 	.then(res=> {
+	// 		setServices(res.data)
+	// 	})
+	// },[])
     // const fetchFunc = async () => {
     //     const response = await axiosPublic.get('/services');
     //     return response.data;
     // }
 
-    // const { isPending, error, data } = useQuery({
-    //     queryKey: ['services'],
-    //     queryFn: fetchFunc,
-    //   })
-    // setServices(data)
+    const {  data : services = [] } = useQuery({
+        queryKey: ['services'],
+        queryFn: async () => {
+            const response = await axiosPublic.get('/services');
+        return response.data;
+        }
+      })
+    
     return (
         <div className='my-8'>
             <div className='text-center text-4xl font-semibold my-8'>
