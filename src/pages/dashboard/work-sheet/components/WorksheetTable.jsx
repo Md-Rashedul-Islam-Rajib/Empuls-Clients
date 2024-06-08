@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../../context/AuthProvider";
 import useAxiosPublic from "../../../../hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
+import useGetWorkData from "../../../../hooks/useGetWorkData";
 
 
 
@@ -12,6 +13,8 @@ const WorksheetTable = () => {
 
         const axiosPublic = useAxiosPublic();
 
+        const {workdata} = useGetWorkData();
+        console.log(workdata)
        
 
         // const [workdata, setWorkdata] = useState([]);
@@ -29,16 +32,16 @@ const WorksheetTable = () => {
         //       });
         //   }, [user?.email]);
 
-          const {  data : workdata = []} = useQuery({
-            queryKey: ['workdata'],
-            queryFn: async () => {
-              const response = await axiosPublic.get('/work-list',{
-                params : { email : user?.email}
-              });
+          // const {  data : workdata = []} = useQuery({
+          //   queryKey: ['workdata'],
+          //   queryFn: async () => {
+          //     const response = await axiosPublic.get('/work-list',{
+          //       params : { email : user?.email}
+          //     });
               
-            return response.data;
-            }
-          })
+          //   return response.data;
+          //   }
+          // })
 
     return (
         <div className="p-4">

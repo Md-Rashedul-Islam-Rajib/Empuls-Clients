@@ -1,4 +1,5 @@
 import axios from "axios";
+import { axiosSecure } from "./useAxiosSecure";
 
 
 export const axiosPublic = axios.create({
@@ -6,6 +7,7 @@ export const axiosPublic = axios.create({
 })
 
 const useAxiosPublic = () => {
+    
     return axiosPublic;
 };
 

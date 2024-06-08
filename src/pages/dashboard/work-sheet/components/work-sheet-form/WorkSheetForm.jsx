@@ -7,6 +7,7 @@ import { AuthContext } from "../../../../../context/AuthProvider";
 import useAxiosPublic from "../../../../../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import useGetWorkData from "../../../../../hooks/useGetWorkData";
 
 
 const postWorkData = async (data) => {
@@ -16,6 +17,8 @@ const postWorkData = async (data) => {
 
 const WorkSheetForm = () => {
   const { user } = useContext(AuthContext);
+
+  const {refetch} = useGetWorkData();
 
   // const [userInfo, setUserInfo] = useState(null);
 
@@ -35,42 +38,43 @@ const WorkSheetForm = () => {
     formState: { errors },
   } = useForm();
   
-  const postWorkData = async (data) => {
-    const response = await axiosPublic.post('/work-list', data);
-    return response.data;
-  };
+  // const postWorkData = async (data) => {
+  //   const response = await axiosPublic.post('/work-list', data);
+  //   return response.data;
+  // };
   
-  const queryClient = useQueryClient();
-const mutation = useMutation(postWorkData, {
-  onSuccess: (data) => {
-      if (data.insertedId) {
-          Swal.fire({
-              position: 'center',
-              icon: 'success',
-              title: 'Your work data has been saved',
-              showConfirmButton: false,
-              timer: 1500,
-          });
-          queryClient.invalidateQueries(['workdata']); 
-      }
-  }
-});
+//   const queryClient = useQueryClient();
+// const mutation = useMutation(postWorkData, {
+//   onSuccess: (data) => {
+//       if (data.insertedId) {
+//           Swal.fire({
+//               position: 'center',
+//               icon: 'success',
+//               title: 'Your work data has been saved',
+//               showConfirmButton: false,
+//               timer: 1500,
+//           });
+//           queryClient.invalidateQueries(['workdata']); 
+//       }
+//   }
+// });
 
   const onSubmit = async (data) => {
   //   console.log(data);
-    mutation.mutate(data);
-    // axiosPublic.post("/work-list",data)
-    // .then((res)=> {
-    //     if (res.data.insertedId){
-    //         Swal.fire({
-    //             position: "center",
-    //             icon: "success",
-    //             title: "Your work data has been saved",
-    //             showConfirmButton: false,
-    //             timer: 1500
-    //           });
-    //     }
-    // })
+    // mutation.mutate(data);
+    axiosPublic.post("/work-list",data)
+    .then((res)=> {
+        if (res.data.insertedId){
+          refetch()
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Your work data has been saved",
+                showConfirmButton: false,
+                timer: 1500
+              });
+        }
+    })
   };
 
   const {  data : userInfo = [] } = useQuery({

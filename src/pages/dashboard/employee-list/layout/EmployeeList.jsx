@@ -5,12 +5,17 @@ import useAxiosPublic from '../../../../hooks/useAxiosPublic';
 import { ImCross } from 'react-icons/im';
 import { BsCheckSquareFill } from 'react-icons/bs';
 import Swal from 'sweetalert2';
+import useVerification from '../../../../hooks/useVerification';
 
 const EmployeeList = () => {
 
     const {user} = useContext(AuthContext);
 	
-    
+    const {mutate: handleVerify } = useVerification();
+    const handleVerification = (_id) => {
+
+      handleVerify(_id) 
+    }
 
     const axiosPublic = useAxiosPublic();
 
@@ -46,24 +51,25 @@ const EmployeeList = () => {
     // };
 
 	
-// ! put request without tanstack query
-	  const handleVerification = (_id) => {
-		axiosPublic.put(`/users/${_id}`)
-		.then(data => {
-			console.log(data.data)
-			if(data?.data?.modifiedCount > 0){
-				Swal.fire({
-					title: "Success",
-					text: `this employee is now verified`,
-					icon: "success"
-				  });
-			}
-		})
-	  }
+
+	  
+
+		// axiosPublic.put(`/users/${_id}`)
+		// .then(data => {
+		// 	console.log(data.data)
+		// 	if(data?.data?.modifiedCount > 0){
+		// 		Swal.fire({
+		// 			title: "Success",
+		// 			text: `this employee is now verified`,
+		// 			icon: "success"
+		// 		  });
+		// 	}
+		// })
+	  
 
 
     return (
-        <div className='max-w-screen'>
+        <div className='overflow-x-auto'>
             <div className="overflow-x-auto">
   <table className="table table-xs table-auto table-pin-rows table-pin-cols">
     <thead>
