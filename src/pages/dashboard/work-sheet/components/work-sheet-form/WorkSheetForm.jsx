@@ -6,7 +6,14 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../../../context/AuthProvider";
 import useAxiosPublic from "../../../../../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+
+
+const postWorkData = async (data) => {
+    const response = await axios.post('/work-list', data);
+    return response.data;
+};
+
 const WorkSheetForm = () => {
   const { user } = useContext(AuthContext);
 
@@ -14,6 +21,7 @@ const WorkSheetForm = () => {
 
   const axiosPublic = useAxiosPublic();
 
+  
   const [selectedDate, setSelectedDate] = useState(
     new Date().toISOString().split("T")[0]
   );
@@ -26,26 +34,43 @@ const WorkSheetForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  //   {
-  //   defaultValues: {
-  //       date: new Date().toISOString().split('T')[0] // Setting default value to current date
-  //     }
-  // }
+  
+  const postWorkData = async (data) => {
+    const response = await axiosPublic.post('/work-list', data);
+    return response.data;
+  };
+  
+  const queryClient = useQueryClient();
+const mutation = useMutation(postWorkData, {
+  onSuccess: (data) => {
+      if (data.insertedId) {
+          Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Your work data has been saved',
+              showConfirmButton: false,
+              timer: 1500,
+          });
+          queryClient.invalidateQueries(['workdata']); 
+      }
+  }
+});
 
   const onSubmit = async (data) => {
-    console.log(data);
-    axiosPublic.post("/work-list",data)
-    .then((res)=> {
-        if (res.data.insertedId){
-            Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "Your work data has been saved",
-                showConfirmButton: false,
-                timer: 1500
-              });
-        }
-    })
+  //   console.log(data);
+    mutation.mutate(data);
+    // axiosPublic.post("/work-list",data)
+    // .then((res)=> {
+    //     if (res.data.insertedId){
+    //         Swal.fire({
+    //             position: "center",
+    //             icon: "success",
+    //             title: "Your work data has been saved",
+    //             showConfirmButton: false,
+    //             timer: 1500
+    //           });
+    //     }
+    // })
   };
 
   const {  data : userInfo = [] } = useQuery({
@@ -58,18 +83,7 @@ const WorkSheetForm = () => {
     }
   })
   
-  // useEffect(() => {
-  //   axiosPublic
-  //     .get("/users", {
-  //       params: {
-  //         email: user.email,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       setUserInfo(res.data);
-  //     });
-  // }, [user?.email]);
-
+  
   
 
   return (
@@ -150,6 +164,9 @@ const WorkSheetForm = () => {
             )}
           </div>
         </div>
+
+            
+
         {/* <DatePicker
     showIcon
     icon=<SlCalender className="text-lg mt-2 mr-2" />

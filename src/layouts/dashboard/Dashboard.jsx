@@ -13,7 +13,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="md:mx-20">
+    <div>
       <Navbar></Navbar>
       <div className="flex min-h-screen">
             {/* Sidebar for large screens */}
@@ -27,6 +27,9 @@ const Dashboard = () => {
                     </Link>
                     <Link to="/dashboard/employee-list">
                         <p className="mb-4">Employee List</p>
+                    </Link>
+                    <Link to="/dashboard/all-employee-list">
+                        <p className="mb-4">All Employee List</p>
                     </Link>
                 </div>
             </div>

@@ -12,8 +12,8 @@ const Login = () => {
 
   const axiosPublic = useAxiosPublic();
 
-  const { logInUser, setUser, googleSignin, githubSignin, user } = useContext(AuthContext);
-  
+  const { logInUser, setUser, googleSignin, githubSignin, user } =
+    useContext(AuthContext);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -46,12 +46,21 @@ const Login = () => {
       .then((result) => {
         setUser(result.user);
         axiosPublic
-        .post("/users", {name:result?.user?.displayName, email:result?.user?.email, role: 'employee' })
-        .then((res) => {
-          if (res.data.insertedId) {
-            console.log('data inserted')
-          }
-        });
+          .post("/users", {
+            name: result?.user?.displayName,
+            image: result?.user?.photoURL,
+            email: result?.user?.email,
+            role: "employee",
+            bank_account_no: 123456789123456,
+            salary: 20000,
+            designation: "sales-assistant",
+            isVerified: false
+          })
+          .then((res) => {
+            if (res.data.insertedId) {
+              console.log("data inserted");
+            }
+          });
 
         navigate(destination);
       })
@@ -64,16 +73,24 @@ const Login = () => {
     githubSignin()
       .then((result) => {
         setUser(result?.user);
-        console.log(result?.user?.displayName ,result?.user?.email)
+        console.log(result?.user?.displayName, result?.user?.email);
 
         axiosPublic
-        .post("/users", {name:result?.user?.displayName, email:result?.user?.email, role: 'employee' })
-        .then((res) => {
-          if (res.data.insertedId) {
-            console.log('data inserted')
-          }
-        });
-       
+          .post("/users", {
+            name: result?.user?.displayName,
+            image: result?.user?.photoURL,
+            email: result?.user?.email,
+            role: "employee",
+            bank_account_no: 123456789123456,
+            salary: 20000,
+            designation: "sales-assistant",
+            isVerified: false
+          })
+          .then((res) => {
+            if (res.data.insertedId) {
+              console.log("data inserted");
+            }
+          });
 
         navigate(destination);
       })
@@ -137,7 +154,6 @@ const Login = () => {
           )}
         </label>
 
-        
         <button className="btn bg-[#6F42C1] text-white w-full">Log In</button>
       </form>
 
@@ -165,4 +181,3 @@ const Login = () => {
 };
 
 export default Login;
-
