@@ -14,34 +14,7 @@ const WorksheetTable = () => {
         const axiosPublic = useAxiosPublic();
 
         const {workdata} = useGetWorkData();
-        console.log(workdata)
-       
-
-        // const [workdata, setWorkdata] = useState([]);
-
-        // useEffect(() => {
-        //     axiosPublic
-        //       .get("/work-list", {
-        //         params: {
-        //           email: user.email,
-        //         },
-        //       })
-        //       .then((res) => {
-        //         setWorkdata(res.data);
-        //         console.log(res.data)
-        //       });
-        //   }, [user?.email]);
-
-          // const {  data : workdata = []} = useQuery({
-          //   queryKey: ['workdata'],
-          //   queryFn: async () => {
-          //     const response = await axiosPublic.get('/work-list',{
-          //       params : { email : user?.email}
-          //     });
-              
-          //   return response.data;
-          //   }
-          // })
+     
 
     return (
         <div className="p-4">

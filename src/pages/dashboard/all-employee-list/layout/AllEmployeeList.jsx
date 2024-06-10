@@ -14,12 +14,12 @@ const AllEmployeeList = () => {
 
   const {mutate : handleFire} = useFiring();
   const handleEmployeeFire = (_id) => {
-    console.log(_id)
+    
     handleFire(_id)
   }
 
   const { data: userInfo = [] } = useQuery({
-    queryKey: ["users"],
+    queryKey: ["all-employee-list"],
     queryFn: async () => {
       const response = await axiosPublic.get("/users");
       return response.data;
@@ -41,20 +41,20 @@ const AllEmployeeList = () => {
             </tr>
           </thead>
           <tbody>
-            {userInfo.map((item, idx) => (
+            {userInfo?.map((item, idx) => (
               <tr key={idx}>
                 <th>{item?.name ? item?.name : "N/A"}</th>
                 <td>{item?.designation ? item?.designation : "N/A"}</td>
                 <td>{item?.salary ? item?.salary : "N/A"}</td>
                 <td>
-                  {item?.role === "HR" ? (
+                  {item?.role === "HR" ? 
                     <span className="px-3 py-1 font-semibold rounded-md btn bg-violet-400 text-gray-900">
                       <span
                       >
                      HR
                       </span>
                     </span>
-                  ) : (
+                   : 
                     <span className="px-3 py-1 font-semibold rounded-md btn bg-violet-400 text-gray-900">
                       <span
                         onClick={() => {
@@ -64,17 +64,17 @@ const AllEmployeeList = () => {
                         Make HR
                       </span>
                     </span>
-                  )}
+                  }
                 </td>
                 <td>
-                {item?.isFired? (
+                {item?.isFired ? 
                     <span className="px-3 py-1 font-semibold rounded-md btn bg-violet-400 text-gray-900">
                       <span
                       >
                      Fired
                       </span>
                     </span>
-                  ) : (
+                  : 
                     <span className="px-3 py-1 font-semibold rounded-md btn bg-violet-400 text-gray-900">
                       <span
                         onClick={() => {
@@ -84,7 +84,7 @@ const AllEmployeeList = () => {
                         Fire
                       </span>
                     </span>
-                  )}
+                  }
                 </td>
               </tr>
             ))}

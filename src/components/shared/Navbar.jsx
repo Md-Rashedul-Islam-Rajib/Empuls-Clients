@@ -10,7 +10,7 @@ const Navbar = () => {
 
   // todo: image from data base in the navbar
 
-  console.log(user)
+  // console.log(user)
   const handleSignOut = () => {
     logOutUser()
     toast.success('Logged out successfully')

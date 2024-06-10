@@ -21,7 +21,7 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const [userinfo, setUserinfo] = useState(null);
+  // const [userinfo, setUserinfo] = useState(null);
   const {
     register,
     handleSubmit,

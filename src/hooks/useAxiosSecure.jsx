@@ -22,7 +22,7 @@ axiosSecure.interceptors.response.use((response)=> {
     const status = error.response.status;
     console.log('error status',status);
     if(status == 401 || status == 403){
-        
+      console.log('object')  
     }
     return Promise.reject(error);
 }

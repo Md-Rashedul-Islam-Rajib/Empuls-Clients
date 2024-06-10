@@ -7,7 +7,7 @@ const useMakeHR = () => {
    return useMutation({
     mutationFn: async (id) => {
         
-        const response = await axiosPublic.patch(`/users/${id}`)
+        const response = await axiosPublic.patch(`/users/${id}/HR`,{status: 'HR'})
         return response.data;
     }, 
     onSuccess: ()=>{
