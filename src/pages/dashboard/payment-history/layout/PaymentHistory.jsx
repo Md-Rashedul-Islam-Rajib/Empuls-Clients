@@ -16,7 +16,7 @@ const PaymentHistory = () => {
         }
       }) 
     
-console.log(paymentinformation)
+
     return (
         
         <div>
