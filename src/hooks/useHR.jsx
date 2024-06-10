@@ -6,7 +6,7 @@ import useAxiosSecure from './useAxiosSecure';
 const useHR = () => {
     const {user} = useContext(AuthContext);
     const axiosSecure = useAxiosSecure();
-    const {data: isHR} = useQuery({
+    const {data: isHR, isPending: isHRLoaing} = useQuery({
         queryKey: [user?.email,'isHr'],
         queryFn: async ()=> {
             const res = await axiosSecure.get(`/users/hr/${user.email}`);
@@ -14,7 +14,7 @@ const useHR = () => {
             return res.data?.HR;
         }
     })
-    return [isHR];
+    return {isHR, isHRLoaing};
 };
 
 export default useHR;
