@@ -27,10 +27,26 @@ const Navbar = () => {
     
   }
     const navs =    <>
-                    <NavLink to='/'> <li>Home</li> </NavLink>
-    <NavLink to='/dashboard'> <li>Dashboard</li> </NavLink>
-    <NavLink to='/contact-us'> <li>Contact Us</li> </NavLink>
-    {!user && <NavLink to='register'> <li>Register</li> </NavLink>}
+                    <NavLink to='/'
+                    className={({ isActive }) =>
+                      `block py-1 px-2 ${isActive ? 'bg-[#6F42C1] text-white' : 'text-black'} text-center font-medium rounded-lg`
+                    }
+                    > <li>Home</li> </NavLink>
+    <NavLink to='/dashboard'
+    className={({ isActive }) =>
+      `block py-1 px-2 ${isActive ? 'bg-[#6F42C1] text-white' : 'text-black'} text-center font-medium rounded-lg`
+    }
+    > <li>Dashboard</li> </NavLink>
+    <NavLink to='/contact-us'
+    className={({ isActive }) =>
+      `block py-1 px-2 ${isActive ? 'bg-[#6F42C1] text-white' : 'text-black'} text-center font-medium rounded-lg`
+    }
+    > <li>Contact Us</li> </NavLink>
+    {!user && <NavLink to='register'
+    className={({ isActive }) =>
+      `block py-1 px-2 ${isActive ? 'bg-[#6F42C1] text-white' : 'text-black'} text-center font-medium rounded-lg`
+    }
+    > <li>Register</li> </NavLink>}
                     </>
     return (
         <div>

@@ -236,7 +236,7 @@ setPaymentinfo(data);
                   </span>
                 </td>
                 <td>
-                  <span className="px-3 py-1 font-semibold rounded-md bg-violet-400 text-gray-900">
+                  <span className="px-3 py-1 font-semibold rounded-md bg-[#6F42C1] text-white">
                     <Link to={`details/${item?.email}`}><span>Details</span></Link>
                   </span>
                 </td>
