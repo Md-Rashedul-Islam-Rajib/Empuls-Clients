@@ -4,11 +4,21 @@ import { AuthContext } from '../../context/AuthProvider';
 import { useContext } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import userimage from "../../assets/user.png"
+import { useQuery } from '@tanstack/react-query';
+import { axiosPublic } from '../../hooks/useAxiosPublic';
 const Navbar = () => {
 
   const {user,logOutUser} = useContext(AuthContext);
 
-  // todo: image from data base in the navbar
+  const {  data : userInfo = [] } = useQuery({
+    queryKey: ['navbar', user.email],
+    queryFn: async () => {
+      const response = await axiosPublic.get('/users',{
+        params : { email : user?.email}
+      });
+    return response.data;
+    }
+  })
 
   // console.log(user)
   const handleSignOut = () => {
@@ -52,8 +62,8 @@ const Navbar = () => {
             
             <div className="dropdown dropdown-bottom">
             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar ">
-            {user ? <img className='rounded-full' src={user?.photoURL} />:
-            <img className='rounded-full' src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+            {userInfo ? <img className='rounded-full' src={userInfo?.image} />:
+            <img className='rounded-full' src={userimage} />
             }
             </div>
             <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[10] p-2 shadow bg-base-100 rounded-box w-24">
