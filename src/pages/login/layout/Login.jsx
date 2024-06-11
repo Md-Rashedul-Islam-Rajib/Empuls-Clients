@@ -1,11 +1,12 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../../context/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import { FaEye, FaEyeSlash, FaGithub } from "react-icons/fa";
-import axios from "axios";
+
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -17,7 +18,7 @@ const Login = () => {
 
   const location = useLocation();
   const navigate = useNavigate();
-  // console.log(location);
+ 
   const destination = location?.state || "/";
 
   const {
@@ -28,16 +29,17 @@ const Login = () => {
 
   const onSubmit = (data) => {
     const { email, password } = data;
+
     logInUser(email, password)
       .then((result) => {
         setUser(result.user);
-        //   toast.success("Log in Successfully as " + email);
+          toast.success("Log in Successfully as " + result.user.email);
         navigate(destination);
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        //   toast.error("Log in Failed. Reason :" + errorMessage);
+          toast.error("Log in Failed. Reason :" + errorMessage);
       });
   };
 

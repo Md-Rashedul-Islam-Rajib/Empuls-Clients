@@ -3,8 +3,8 @@
 import { createContext, useEffect, useState } from "react";
 import auth from "../firebase/firebase.config";
 import { GithubAuthProvider, GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
-import axios from "axios";
 import useAxiosPublic from "../hooks/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
 
 
 
@@ -14,8 +14,17 @@ const AuthProvider = ({children}) => {
     const axiosPublic = useAxiosPublic()
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
-    
+    // const [currentUserInfo, setCurrentUserInfo] = useState(null);
 
+    // useEffect(()=>{
+    //    axiosPublic.get('/users',{
+    //         params : { email : user?.email}
+    //       })
+    //       .then(res=>{
+    //         setCurrentUserInfo(res.data);
+    //       })
+    // },[axiosPublic,user.email])
+    // console.log(currentUserInfo)
 
     // register user
     const createUser = (email, password) => {
@@ -50,6 +59,7 @@ const AuthProvider = ({children}) => {
     const githubProvider = new GithubAuthProvider();
     const githubSignin = () => {
         setLoading(true)
+        
         return signInWithPopup(auth, githubProvider)
     }
     

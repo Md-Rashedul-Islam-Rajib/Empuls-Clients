@@ -18,7 +18,11 @@ const WorksheetTable = () => {
      
 
     return (
-        <div className="p-4">
+      <div>
+
+        {workdata?.length=== 0? <div className="flex justify-center mt-10">
+              <h2 className="text-3xl font-semibold"> No work data found</h2>
+              </div>:<div className="p-4">
             <div className="overflow-x-auto">
   <table className="table table-zebra table-auto table-pin-rows">
     {/* head */}
@@ -45,7 +49,8 @@ const WorksheetTable = () => {
     </tbody>
   </table>
 </div>
-        </div>
+        </div>}
+      </div>
     );
 };
 

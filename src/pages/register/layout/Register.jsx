@@ -64,10 +64,11 @@ const Register = () => {
             if (res.data.insertedId) {
               console.log("data inserted");
               toast.success("Account created successfully");
+              logOutUser();
               navigate("/login");
             }
           });
-          // logOutUser();
+          
         })
         .catch((error) => {
           console.log(error);

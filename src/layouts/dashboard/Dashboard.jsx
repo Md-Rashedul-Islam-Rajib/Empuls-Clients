@@ -24,7 +24,7 @@ const Dashboard = () => {
     },
   });
 
-  console.log(userInfo);
+  
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -52,7 +52,8 @@ const Dashboard = () => {
           <div className="divider"></div>
 
           <div className="mt-8">
-            <NavLink
+            {/* employee route */}
+            {userInfo?.role === 'employee' && <> <NavLink
               to="/dashboard/work-sheet"
               className={({ isActive }) =>
                 `block py-1 mx-12 ${
@@ -60,7 +61,7 @@ const Dashboard = () => {
                 } rounded-xl text-center font-medium`
               }
             >
-              <p className="mb-4 flex items-center justify-center gap-1">
+              <p className="mb-4 flex items-center justify-center pt-3 gap-1">
                 <span>
                   <LuSheet />
                 </span>{" "}
@@ -76,7 +77,7 @@ const Dashboard = () => {
                 } rounded-xl text-center font-medium`
               }
             >
-              <p className="mb-4 flex items-center justify-center gap-1">
+              <p className="mb-4 flex items-center justify-center pt-3 gap-1">
                 {" "}
                 <span>
                   <FaHistory />
@@ -84,8 +85,12 @@ const Dashboard = () => {
                 Payment History
               </p>
             </NavLink>
+            </>}
 
-            <NavLink
+
+            {/* HR route */}
+              {userInfo?.role === 'HR' && <>
+              <NavLink
               to="/dashboard/employee-list"
               className={({ isActive }) =>
                 `block py-1 mx-12 ${
@@ -93,7 +98,7 @@ const Dashboard = () => {
                 } rounded-xl text-center font-medium`
               }
             >
-              <p className="mb-4 flex items-center justify-center gap-1">
+              <p className="mb-4 flex items-center justify-center pt-3 gap-1">
                 <span>
                   <MdPeopleAlt />
                 </span>
@@ -110,16 +115,20 @@ const Dashboard = () => {
                 } rounded-xl text-center font-medium`
               }
             >
-              <p className="mb-4 flex items-center justify-center gap-1">
+              <p className="mb-4 flex items-center justify-center pt-3 gap-1">
                 <span>
                 <BsGraphUpArrow />
                 </span>
                 Progress
               </p>
             </NavLink>
+              </>}
 
 
-            <NavLink
+              {/* admin route */}
+            {userInfo?.role === 'admin' &&
+              <>
+              <NavLink
               to="/dashboard/all-employee-list"
               className={({ isActive }) =>
                 `block py-1 mx-12 ${
@@ -127,13 +136,15 @@ const Dashboard = () => {
                 } rounded-xl text-center font-medium`
               }
             >
-              <p className="mb-4 flex items-center justify-center gap-1">
+              <p className="mb-4 flex items-center justify-center pt-3 gap-1">
                 <span>
                   <FaPeopleGroup />
                 </span>{" "}
                 All Employee List
               </p>
             </NavLink>
+              </>
+            }
           </div>
         </div>
 

@@ -48,14 +48,14 @@ const AllEmployeeList = () => {
                 <td>{item?.salary ? item?.salary : "N/A"}</td>
                 <td>
                   {item?.role === "HR" ? 
-                    <span className="px-3 py-1 font-semibold rounded-md btn bg-violet-400 text-gray-900">
+                    <span className="px-3 py-1 font-semibold rounded-md bg-green-600 text-white">
                       <span
                       >
                      HR
                       </span>
                     </span>
                    : 
-                    <span className="px-3 py-1 font-semibold rounded-md btn bg-violet-400 text-gray-900">
+                    <span className="px-3 py-1 font-semibold rounded-md btn btn-sm bg-violet-400 text-gray-900">
                       <span
                         onClick={() => {
                           handleMakeHR(item._id);
@@ -68,14 +68,14 @@ const AllEmployeeList = () => {
                 </td>
                 <td>
                 {item?.isFired ? 
-                    <span className="px-3 py-1 font-semibold rounded-md btn bg-violet-400 text-gray-900">
+                    <span className="px-3 py-1 font-semibold rounded-md  bg-red-600 text-white">
                       <span
                       >
                      Fired
                       </span>
                     </span>
                   : 
-                    <span className="px-3 py-1 font-semibold rounded-md btn bg-violet-400 text-gray-900">
+                    <span className="px-3 py-1 font-semibold rounded-md btn btn-sm bg-violet-400 text-gray-900">
                       <span
                         onClick={() => {
                           handleEmployeeFire(item?._id);

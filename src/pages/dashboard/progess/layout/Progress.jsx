@@ -11,9 +11,28 @@ const Progress = () => {
           return response.data;
         },
       });
-console.log(workdata)
+
+      const { data: filterUser = [] } = useQuery({
+        queryKey: ["filter"],
+        queryFn: async () => {
+          const response = await axiosPublic.get("/users");
+          return response.data;
+        },
+      });
+
+      // const filterOption = filterUser.filter(item=>item.role !== "admin" );
+      // console.log(filterOption)
+
     return (
         <div>
+
+        {/* <div>
+          <select name="" id="">
+            <option value="">Select Employee</option>
+              {filterOption.map((item,idx)=> <option key={idx} value={item}>{item}</option>)}
+          </select>
+        </div> */}
+
             <div className="overflow-x-auto">
   <table className="table">
     {/* head */}

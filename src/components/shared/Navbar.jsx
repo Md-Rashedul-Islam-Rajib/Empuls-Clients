@@ -11,7 +11,7 @@ const Navbar = () => {
   const {user,logOutUser} = useContext(AuthContext);
 
   const {  data : userInfo = [] } = useQuery({
-    queryKey: ['navbar', user.email],
+    queryKey: ['navbar', user?.email],
     queryFn: async () => {
       const response = await axiosPublic.get('/users',{
         params : { email : user?.email}
@@ -61,7 +61,9 @@ const Navbar = () => {
       </ul>
     </div>
     <a className="btn btn-ghost text-xl">
+      <Link to='/'>
         <img src={logo} className='h-10' alt="" />
+      </Link>
     </a>
   </div>
   {/* <div className="navbar-center hidden lg:flex">
