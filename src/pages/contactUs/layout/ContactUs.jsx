@@ -32,7 +32,7 @@ const ContactUs = () => {
 
   return (
     <div
-      className="h-screen"
+      className="py-20"
       style={{ backgroundImage: "url(/Contactus.jpg)" }}
     >
       <div className="text-white flex flex-col lg:flex-row size-full">
