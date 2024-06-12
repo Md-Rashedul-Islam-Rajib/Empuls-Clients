@@ -11,7 +11,7 @@ const useMakeHR = () => {
         return response.data;
     }, 
     onSuccess: ()=>{
-        queryClient.invalidateQueries({ queryKey: ['users'] }) // remove the cache data from the get api what automatically triggered refetch the get api
+        queryClient.invalidateQueries({ queryKey: ['users'] }) 
     }
    })
 };
