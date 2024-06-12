@@ -31,7 +31,6 @@ setPaymentinfo(data);
       handleSalary( selectedUserid);
       
    console.log(selectedUserid,data)
-      reset(); 
       document.getElementById("my_modal_5").close();
    }
   };
@@ -44,7 +43,7 @@ setPaymentinfo(data);
 
   
 
-  const { data: userInfo = [] } = useQuery({
+  const { data: filterUser = [] } = useQuery({
     queryKey: ["employee-list"],
     queryFn: async () => {
       const response = await axiosPublic.get("/users");
@@ -52,12 +51,12 @@ setPaymentinfo(data);
     },
   });
 
-  
+  const userInfo = filterUser.filter(item=>item.role !== "admin" );
 
   return (
-    <div className="overflow-x-auto">
-      <div className="overflow-x-auto">
-        <table className="table table-xs table-auto table-pin-rows table-pin-cols">
+    <div>
+      <div>
+        <table className="table table-xs table-auto overflow-x-auto">
           <thead>
             <tr>
               <th>Name</th>

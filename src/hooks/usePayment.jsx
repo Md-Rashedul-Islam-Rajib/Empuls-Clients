@@ -13,7 +13,7 @@ const usePayment = (data) => {
          return response.data;
      }, 
      onSuccess: ()=>{
-         queryClient.invalidateQueries({ queryKey: ['payment-barchart'] });
+         queryClient.invalidateQueries({ queryKey: ["payment-history",'payment-barchart'] });
          Swal.fire({
             position: "center",
             icon: "success",

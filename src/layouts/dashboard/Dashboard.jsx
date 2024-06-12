@@ -84,7 +84,7 @@ const Dashboard = () => {
 
           <div className="divider"></div>
 
-          <div className="mt-8">
+          <div className="mt-8 pb-8">
             {/* employee route */}
             {userInfo?.role === 'employee' && <> <NavLink
               to="/dashboard/work-sheet"

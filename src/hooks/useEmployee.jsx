@@ -12,7 +12,6 @@ const useEmployee = () => {
     queryFn: async () => {
       if (user?.email) {
         const res = await axiosSecure.get(`/users/employee/${user?.email}`);
-        console.log(res.data);
         return res.data?.employee;
       }
     },

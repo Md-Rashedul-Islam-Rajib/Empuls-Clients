@@ -1,16 +1,37 @@
 import { useQuery } from "@tanstack/react-query";
 import { axiosPublic } from "../../../../hooks/useAxiosPublic";
+import { useState } from "react";
 
 
 const Progress = () => {
 
+  const [selectedEmployeeEmail, setSelectedEmployeeEmail] = useState("");
+      const [selectedMonth, setSelectedMonth] = useState("");
+    
+      const handleChangeEmployeeEmail = (event) => {
+        setSelectedEmployeeEmail(event.target.value);
+      };
+    
+      const handleChangeMonth = (event) => {
+        setSelectedMonth(event.target.value);
+      };
+
     const { data: workdata = [] } = useQuery({
         queryKey: ["progress"],
         queryFn: async () => {
-          const response = await axiosPublic.get("/work-list");
+          const response = await axiosPublic.get(`/work-list`, {
+            params: {
+              email: selectedEmployeeEmail,
+              month: selectedMonth
+            }
+          });
           return response.data;
         },
       });
+
+      
+
+      
 
       const { data: filterUser = [] } = useQuery({
         queryKey: ["filter"],
@@ -20,22 +41,48 @@ const Progress = () => {
         },
       });
 
+
+      
+
+      console.log(selectedEmployeeEmail,selectedMonth)
+
       const filterOption = filterUser.filter(item=>item.role !== "admin" );
-      console.log(filterOption)
+      
 
     return (
         <div>
 
+<form>
         <div>
-          <select name="" id="">
-            <option value="">Select Employee</option>
-              {filterOption.map((item,idx)=> <option key={idx} value={item?.name}>{item?.name}</option>)}
+          
+          <select  onChange={handleChangeEmployeeEmail}>
+            <option>Select Employee</option>
+              {filterOption.map((item,idx)=> <option key={idx} value={item?.email}>{item?.name}</option>)}
           </select>
         </div>
 
+        <div>
+          <select  onChange={handleChangeMonth}>
+            <option >Select Month</option>
+              <option value="01">January</option>
+              <option value="02">February</option>
+              <option value="03">March</option>
+              <option value="04">April</option>
+              <option value="05">May</option>
+              <option value="06">June</option>
+              <option value="07">July</option>
+              <option value="08">August</option>
+              <option value="09">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
+             
+          </select>
+        </div>
+        </form>
             <div className="overflow-x-auto">
   <table className="table">
-    {/* head */}
+    
     <thead>
       <tr>
         <th></th>

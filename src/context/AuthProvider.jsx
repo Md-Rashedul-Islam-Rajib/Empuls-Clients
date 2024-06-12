@@ -102,18 +102,7 @@ const AuthProvider = ({ children }) => {
         setUser(null);
             setLoading(false);
       }
-      //    if(currentUser){
-
-      //     axios.post('https://newassignment-11.vercel.app/jwt',loggedUser, {withCredentials: true})
-      //     .then(res=> {
-      //         console.log(res.data);
-      //     })
-      //    }else{
-      //     axios.post('https://newassignment-11.vercel.app/logout',loggedUser, {withCredentials: true})
-      //     .then(res=>{
-      //         console.log(res.data);
-      //     })
-      //    }
+      
     });
     return () => {
        unsubscribe();

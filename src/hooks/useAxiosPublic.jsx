@@ -3,7 +3,7 @@ import { axiosSecure } from "./useAxiosSecure";
 
 
 export const axiosPublic = axios.create({
-    baseURL: 'http://localhost:5000'
+    baseURL: 'https://assignment-12-server-gamma-sable.vercel.app'
 })
 
 const useAxiosPublic = () => {

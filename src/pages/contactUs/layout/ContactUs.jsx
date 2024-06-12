@@ -35,12 +35,12 @@ const ContactUs = () => {
       className="py-20"
       style={{ backgroundImage: "url(/Contactus.jpg)" }}
     >
-      <div className="text-white flex flex-col lg:flex-row size-full">
-        <div className="flex flex-col gap-10 justify-center lg: ml-60">
+      <div className="text-white flex flex-col lg:flex-row size-full ">
+        <div className="flex flex-col justify-center text-center lg:text-start lg: ml-60">
           <h2 className="text-4xl font-bold">Contact Us</h2>
 
           <div>
-            <div className="flex items-center gap-2 text-xl font-medium my-2">
+            <div className="flex items-center gap-2 text-xl font-medium my-2 justify-center lg:justify-normal">
               <span>
                 <BsFillTelephoneFill />
               </span>{" "}
@@ -50,7 +50,7 @@ const ContactUs = () => {
           </div>
 
           <div>
-            <div className="flex items-center gap-2 text-xl font-medium my-2">
+            <div className="flex items-center gap-2 text-xl font-medium my-2 justify-center lg:justify-normal">
               <span>
                 <IoLocationSharp />
               </span>{" "}
@@ -60,7 +60,7 @@ const ContactUs = () => {
           </div>
 
           <div>
-            <div className="flex items-center gap-2 text-xl font-medium my-2">
+            <div className="flex items-center gap-2 text-xl font-medium my-2 justify-center lg:justify-normal">
               <span>
                 <IoMdTime />
               </span>{" "}
@@ -70,7 +70,7 @@ const ContactUs = () => {
           </div>
         </div>
 
-        <div className="flex-1 flex items-center justify-center">
+        <div className="flex-1 flex items-center justify-center mt-4">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col gap-4 mb-4">
                 <p>Email</p>

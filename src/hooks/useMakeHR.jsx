@@ -11,7 +11,7 @@ const useMakeHR = () => {
         return response.data;
     }, 
     onSuccess: ()=>{
-        queryClient.invalidateQueries({ queryKey: ['users'] }) 
+        queryClient.invalidateQueries({ queryKey: ["all-employee-list"] }) 
     }
    })
 };
