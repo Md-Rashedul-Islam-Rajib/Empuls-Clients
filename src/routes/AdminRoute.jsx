@@ -23,6 +23,7 @@ const AdminRoute = ({children}) => {
                 {children}
             </div>;
         }
+        console.log(isAdmin,isAdminLoading)
         return <Navigate to='/login' state={location?.pathname}></Navigate>
 };
 
