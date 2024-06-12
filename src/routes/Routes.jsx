@@ -16,6 +16,7 @@ import EmployeeRoute from "./EmployeeRoute";
 import Progress from "../pages/dashboard/progess/layout/Progress";
 import AdminRoute from "./AdminRoute";
 import HRRoute from "./HRRoute";
+import Feedback from "../pages/dashboard/feedback/layout/Feedback";
 
 export const router = createBrowserRouter([
   {
@@ -53,51 +54,59 @@ export const router = createBrowserRouter([
       {
         path: "work-sheet",
         element: (
-        //   <EmployeeRoute>
+          <EmployeeRoute>
             <WorkSheet></WorkSheet>
-        //   </EmployeeRoute>
+          </EmployeeRoute>
         ),
       },
       {
         path: "payment-history",
         element: (
-        //   <EmployeeRoute>
+          <EmployeeRoute>
             <PaymentHistory></PaymentHistory>
-        //   </EmployeeRoute>
+          </EmployeeRoute>
         ),
       },
       {
         path: "employee-list",
         element: (
-        //   <HRRoute>
+          <HRRoute>
             <EmployeeList></EmployeeList>
-        //   </HRRoute>
+          </HRRoute>
         ),
       },
       {
         path: "employee-list/details/:email",
         element: (
-        //   <HRRoute>
+          <HRRoute>
             <EmployeeDetails></EmployeeDetails>
-        //   </HRRoute>
+        </HRRoute>
         ),
       },
       {
         path: "progress",
         element: (
-        //   <HRRoute>
+          <HRRoute>
             <Progress></Progress>
-        //   </HRRoute>
+          </HRRoute>
         ),
       },
       {
         path: "all-employee-list",
         element: (
-        //   <AdminRoute>
+          <AdminRoute>
             <AllEmployeeList></AllEmployeeList>
-        //   </AdminRoute>
+          </AdminRoute>
         ),
       },
+      {
+        path: "feedback",
+        element: (
+          <AdminRoute>
+            <Feedback></Feedback>
+          </AdminRoute> 
+        )
+      }
     ],
   },
 ]);

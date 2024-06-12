@@ -24,7 +24,7 @@ const Testimonials = () => {
             return response.data;
         }
       })
-      console.log(testimonials)
+     
 
     return (
         <div>

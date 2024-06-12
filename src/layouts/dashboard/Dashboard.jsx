@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import Navbar from "../../components/shared/Navbar";
 import Footer from "../../components/shared/Footer";
-import { FaBars, FaHistory, FaTimes } from "react-icons/fa";
+import { FaBars, FaEnvelopeOpenText, FaHistory, FaTimes } from "react-icons/fa";
 import { LuSheet } from "react-icons/lu";
 import { MdPeopleAlt } from "react-icons/md";
 import { FaPeopleGroup } from "react-icons/fa6";
@@ -14,7 +14,7 @@ import { BsGraphUpArrow } from "react-icons/bs";
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
 
-  const { data: userInfo = [] } = useQuery({
+  const { data: userInfo = {} } = useQuery({
     queryKey: ["dashboard", user.email],
     queryFn: async () => {
       const response = await axiosPublic.get("/users", {
@@ -24,7 +24,7 @@ const Dashboard = () => {
     },
   });
 
-  
+  console.log(userInfo)
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -141,6 +141,22 @@ const Dashboard = () => {
                   <FaPeopleGroup />
                 </span>{" "}
                 All Employee List
+              </p>
+            </NavLink>
+
+            <NavLink
+              to="/dashboard/feedback"
+              className={({ isActive }) =>
+                `block py-1 mx-12 ${
+                  isActive ? "bg-[#6F42C1] text-white" : "text-black"
+                } rounded-xl text-center font-medium`
+              }
+            >
+              <p className="mb-4 flex items-center justify-center pt-3 gap-1">
+                <span>
+                <FaEnvelopeOpenText />
+                </span>{" "}
+                Messages
               </p>
             </NavLink>
               </>

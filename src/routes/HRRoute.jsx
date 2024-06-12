@@ -17,13 +17,14 @@ const HRRoute = ({children}) => {
         )
     }
     
-    
+    console.log(user, isHR, isHRLoading)
     
         if(user && isHR){
             return <div>
                 {children}
             </div>;
         }
+        console.log('navigate to login')
         return <Navigate to='/login' state={location?.pathname}></Navigate>
 };
 

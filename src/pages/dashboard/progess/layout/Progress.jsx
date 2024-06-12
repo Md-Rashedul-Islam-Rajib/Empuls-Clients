@@ -20,18 +20,18 @@ const Progress = () => {
         },
       });
 
-      // const filterOption = filterUser.filter(item=>item.role !== "admin" );
-      // console.log(filterOption)
+      const filterOption = filterUser.filter(item=>item.role !== "admin" );
+      console.log(filterOption)
 
     return (
         <div>
 
-        {/* <div>
+        <div>
           <select name="" id="">
             <option value="">Select Employee</option>
-              {filterOption.map((item,idx)=> <option key={idx} value={item}>{item}</option>)}
+              {filterOption.map((item,idx)=> <option key={idx} value={item?.name}>{item?.name}</option>)}
           </select>
-        </div> */}
+        </div>
 
             <div className="overflow-x-auto">
   <table className="table">
