@@ -46,5 +46,5 @@ Resources:
 - [AOS](https://michalsnik.github.io/aos/)
 
 
-Admin Email : admin@empuls.com
+Admin Email : admin@empuls.com <br />
 Admin password : Admin@empuls
