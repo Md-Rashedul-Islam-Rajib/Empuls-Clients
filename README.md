@@ -1,6 +1,11 @@
 # Empuls Employee Services
 
+
+
 -[Empuls Employee Services](https://assignment-12-20a84.web.app)
+
+Overview:
+Empuls Employee Service is an employee management system designed to facilitate efficient daily work data collection. It enables higher authorities to review and verify employee performance, aiding in informed decision-making and appropriate action based on employees' work activities.
 
 Features:
 
@@ -15,6 +20,10 @@ Features:
 9. An admin can fire any one in any time from this site.
 10. An admin can adjust anyone's salary of this but he can only increase the salary.
 
+Technologies Used:
+- [Front End] : React, Tailwind CSS
+- [Back End] : ExpressJs, NodeJs
+- [Data Base] : MongoDB
 
 
 
