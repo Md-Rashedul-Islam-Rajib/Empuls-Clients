@@ -22,7 +22,7 @@ Features:
 
 Technologies Used:
 - Front End : React, Tailwind CSS
-- Back End]  ExpressJs, NodeJs
+- Back End :  ExpressJs, NodeJs
 - Data Base : MongoDB
 
 
