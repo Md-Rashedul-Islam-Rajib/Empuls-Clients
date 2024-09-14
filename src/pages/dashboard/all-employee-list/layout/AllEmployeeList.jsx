@@ -52,30 +52,26 @@ const AllEmployeeList = () => {
   );
 
   return (
-    <div>
+    <div className="container mx-auto px-4">
       <div className="my-4 text-3xl flex justify-end">
         <button
           onClick={handleToggle}
           className="toggle-button"
-          title={
-            isGridView
-              ? "Change viewing layout to table"
-              : "Change viewing layout to grid"
-          }
+          title={isGridView ? "Change viewing layout to table" : "Change viewing layout to grid"}
         >
           {isGridView ? <FaTable /> : <FaTh />}
         </button>
       </div>
 
       {isGridView ? (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {AllEmployeeListWithoutAdmin?.map((item, idx) => (
             <div
               key={idx}
-              className="card w-96 bg-neutral text-neutral-content"
+              className="card w-full sm:w-auto bg-neutral text-neutral-content shadow-lg"
             >
               <div className="card-body items-center text-center">
-                <h2 className="card-title">
+                <h2 className="card-title text-lg sm:text-xl">
                   {item?.name ? item?.name : "N/A"}
                 </h2>
                 <p>{item?.designation ? item?.designation : "N/A"}</p>
@@ -89,36 +85,30 @@ const AllEmployeeList = () => {
                     />
                   </span>
                 </p>
-                <div className="card-actions justify-end">
+                <div className="card-actions justify-end flex gap-2">
                   {item?.role === "HR" ? (
                     <span className="px-3 py-1 font-semibold rounded-md bg-green-600 text-white">
-                      <span>HR</span>
+                      HR
                     </span>
                   ) : (
-                    <span className="px-3 py-1 font-semibold rounded-md btn btn-sm bg-violet-400 text-gray-900">
-                      <span
-                        onClick={() => {
-                          handleMakeHR(item._id);
-                        }}
-                      >
-                        Make HR
-                      </span>
-                    </span>
+                    <button
+                      className="px-3 py-1 font-semibold rounded-md btn btn-sm bg-violet-400 text-gray-900"
+                      onClick={() => handleMakeHR(item._id)}
+                    >
+                      Make HR
+                    </button>
                   )}
                   {item?.isFired ? (
-                    <span className="px-3 py-1 font-semibold rounded-md  bg-red-600 text-white">
-                      <span>Fired</span>
+                    <span className="px-3 py-1 font-semibold rounded-md bg-red-600 text-white">
+                      Fired
                     </span>
                   ) : (
-                    <span className="px-3 py-1 font-semibold rounded-md btn btn-sm bg-violet-400 text-gray-900">
-                      <span
-                        onClick={() => {
-                          handleEmployeeFire(item?._id);
-                        }}
-                      >
-                        Fire
-                      </span>
-                    </span>
+                    <button
+                      className="px-3 py-1 font-semibold rounded-md btn btn-sm bg-violet-400 text-gray-900"
+                      onClick={() => handleEmployeeFire(item?._id)}
+                    >
+                      Fire
+                    </button>
                   )}
                 </div>
               </div>
@@ -127,7 +117,7 @@ const AllEmployeeList = () => {
         </div>
       ) : (
         <div className="overflow-x-auto">
-          <table className="table overflow-x-auto">
+          <table className="table table-auto w-full text-sm sm:text-base">
             <thead>
               <tr>
                 <th>Name</th>
@@ -141,49 +131,41 @@ const AllEmployeeList = () => {
             <tbody>
               {AllEmployeeListWithoutAdmin?.map((item, idx) => (
                 <tr key={idx}>
-                  <th>{item?.name ? item?.name : "N/A"}</th>
+                  <td>{item?.name ? item?.name : "N/A"}</td>
                   <td>{item?.designation ? item?.designation : "N/A"}</td>
-                  <td>{item?.salary ? item?.salary : "N/A"} </td>
+                  <td>{item?.salary ? item?.salary : "N/A"}</td>
                   <td>
                     <GiHealthIncrease
                       className="text-2xl cursor-pointer"
-                      onClick={() => {
-                        handleSalaryIncrease(item?._id);
-                      }}
+                      onClick={() => handleSalaryIncrease(item?._id)}
                     />
                   </td>
                   <td>
                     {item?.role === "HR" ? (
                       <span className="px-3 py-1 font-semibold rounded-md bg-green-600 text-white">
-                        <span>HR</span>
+                        HR
                       </span>
                     ) : (
-                      <span className="px-3 py-1 font-semibold rounded-md btn btn-sm bg-violet-400 text-gray-900">
-                        <span
-                          onClick={() => {
-                            handleMakeHR(item._id);
-                          }}
-                        >
-                          Make HR
-                        </span>
-                      </span>
+                      <button
+                        className="px-3 py-1 font-semibold rounded-md btn btn-sm bg-violet-400 text-gray-900"
+                        onClick={() => handleMakeHR(item._id)}
+                      >
+                        Make HR
+                      </button>
                     )}
                   </td>
                   <td>
                     {item?.isFired ? (
-                      <span className="px-3 py-1 font-semibold rounded-md  bg-red-600 text-white">
-                        <span>Fired</span>
+                      <span className="px-3 py-1 font-semibold rounded-md bg-red-600 text-white">
+                        Fired
                       </span>
                     ) : (
-                      <span className="px-3 py-1 font-semibold rounded-md btn btn-sm bg-violet-400 text-gray-900">
-                        <span
-                          onClick={() => {
-                            handleEmployeeFire(item?._id);
-                          }}
-                        >
-                          Fire
-                        </span>
-                      </span>
+                      <button
+                        className="px-3 py-1 font-semibold rounded-md btn btn-sm bg-violet-400 text-gray-900"
+                        onClick={() => handleEmployeeFire(item?._id)}
+                      >
+                        Fire
+                      </button>
                     )}
                   </td>
                 </tr>
@@ -192,20 +174,32 @@ const AllEmployeeList = () => {
           </table>
         </div>
       )}
+
       {showSalaryPopup && (
-        <div className="flex justify-center">
-          <div className="popup my-4  input input-bordered flex items-center">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm">
+            <h2 className="text-xl font-semibold mb-4">Increase Salary</h2>
             <input
               type="number"
+              value={newSalary}
               onChange={(e) => setNewSalary(e.target.value)}
               placeholder="Enter new salary"
+              className="input input-bordered w-full mb-4"
             />
-            <button
-              className="bg-[#6F42C1] btn btn-sm text-white"
-              onClick={handleSalarySubmit}
-            >
-              Submit
-            </button>
+            <div className="flex justify-end gap-2">
+              <button
+                className="btn bg-red-500 text-white"
+                onClick={() => setShowSalaryPopup(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="btn bg-[#6F42C1] text-white"
+                onClick={handleSalarySubmit}
+              >
+                Submit
+              </button>
+            </div>
           </div>
         </div>
       )}
