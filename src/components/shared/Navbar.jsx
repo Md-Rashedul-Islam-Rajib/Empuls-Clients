@@ -49,8 +49,8 @@ const Navbar = () => {
     > <li>Register</li> </NavLink>}
                     </>
     return (
-        <div>
-            <div className="navbar bg-base-100">
+        <nav>
+            <div className="navbar bg-base-100 pr-8">
   <div className="navbar-start">
     <div className="dropdown">
       <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -72,24 +72,38 @@ const Navbar = () => {
       {navs}
     </ul>
     
-    {user ? 
-            
-            <div className="dropdown dropdown-bottom">
-            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar ">
-            {userInfo ? <img className='rounded-full' src={userInfo?.image} />:
-            <img className='rounded-full' src={userimage} />
-            }
-            </div>
-            <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[10] p-2 shadow bg-base-100 rounded-box w-24">
-            <button onClick={handleSignOut} className="btn btn-sm bg-[#6f42c1] text-sm text-white">Log Out</button>
-            </ul>
-          </div>
-           
-        : <Link to='/login'><button  className="btn bg-[#6F42C1] text-white">Login</button> </Link> }
+    {user ? (
+    <div className="relative">
+        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+            {userInfo ? (
+                <img className="rounded-full" src={userInfo?.image} alt="User" />
+            ) : (
+                <img className="rounded-full" src={userimage} alt="Default" />
+            )}
+        </div>
+        <ul
+            tabIndex={0}
+            className="absolute left-0 mt-3 z-[10] p-2 shadow bg-base-100 rounded-box w-24"
+            style={{ top: '100%', transform: 'translateX(-20%)' }} // Adjust this value as needed
+        >
+            <button
+                onClick={handleSignOut}
+                className="btn btn-sm bg-[#6f42c1] text-sm text-white"
+            >
+                Log Out
+            </button>
+        </ul>
+    </div>
+) : (
+    <Link to="/login">
+        <button className="btn bg-[#6F42C1] text-white">Login</button>
+    </Link>
+)}
+
   </div>
 </div>
 <Toaster />
-        </div>
+        </nav>
     );
 };
 
