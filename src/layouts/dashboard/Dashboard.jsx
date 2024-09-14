@@ -182,12 +182,132 @@ const Dashboard = () => {
         <div
           className={`fixed inset-0 z-50 transition-transform transform ${
             isDrawerOpen ? "translate-x-0" : "-translate-x-full"
-          } sm:hidden bg-[#E9ECEF] min-h-screen`}
+          } sm:hidden bg-[#E9ECEF] min-h-screen min-w-screen`}
         >
           <div className="p-6">
             <button onClick={toggleDrawer} className="text-2xl mb-4 focus:outline-none">
               <FaTimes />
             </button>
+
+            {/* employee route */}
+            {userInfo?.role === "employee" && (
+              <>
+                {" "}
+                <NavLink
+                  to="/dashboard/work-sheet"
+                  onClick={toggleDrawer}
+                  className={({ isActive }) =>
+                    `block py-1 mx-12 ${
+                      isActive ? "bg-[#6F42C1] text-white" : "text-black"
+                    } rounded-xl text-center font-medium`
+                  }
+                >
+                  <p className="mb-4 flex items-center justify-center pt-3 gap-1">
+                    <span>
+                      <LuSheet />
+                    </span>{" "}
+                    Work Sheet
+                  </p>
+                </NavLink>
+                <NavLink
+                  to="/dashboard/payment-history"
+                  onClick={toggleDrawer}
+                  className={({ isActive }) =>
+                    `block py-1 mx-12 ${
+                      isActive ? "bg-[#6F42C1] text-white" : "text-black"
+                    } rounded-xl text-center font-medium`
+                  }
+                >
+                  <p className="mb-4 flex items-center justify-center pt-3 gap-1">
+                    {" "}
+                    <span>
+                      <FaHistory />
+                    </span>
+                    Payment History
+                  </p>
+                </NavLink>
+              </>
+            )}
+
+
+            {/* HR route */}
+            {userInfo?.role === "HR" && (
+              <>
+                <NavLink
+                  to="/dashboard/employee-list"
+                  onClick={toggleDrawer}
+                  className={({ isActive }) =>
+                    `block py-1 mx-12 ${
+                      isActive ? "bg-[#6F42C1] text-white" : "text-black"
+                    } rounded-xl text-center font-medium`
+                  }
+                >
+                  <p className="mb-4 flex items-center justify-center pt-3 gap-1">
+                    <span>
+                      <MdPeopleAlt />
+                    </span>
+                    Employee List
+                  </p>
+                </NavLink>
+
+                <NavLink
+                  to="/dashboard/progress"
+                  onClick={toggleDrawer}
+                  className={({ isActive }) =>
+                    `block py-1 mx-12 ${
+                      isActive ? "bg-[#6F42C1] text-white" : "text-black"
+                    } rounded-xl text-center font-medium`
+                  }
+                >
+                  <p className="mb-4 flex items-center justify-center pt-3 gap-1">
+                    <span>
+                      <BsGraphUpArrow />
+                    </span>
+                    Progress
+                  </p>
+                </NavLink>
+              </>
+            )}
+
+
+            {/* admin route */}
+            {userInfo?.role === "admin" && (
+              <>
+                <NavLink
+                  to="/dashboard/all-employee-list"
+                  onClick={toggleDrawer}
+                  className={({ isActive }) =>
+                    `block py-1 mx-12 ${
+                      isActive ? "bg-[#6F42C1] text-white" : "text-black"
+                    } rounded-xl text-center font-medium`
+                  }
+                >
+                  <p className="mb-4 flex items-center justify-center pt-3 gap-1">
+                    <span>
+                      <FaPeopleGroup />
+                    </span>{" "}
+                    All Employee List
+                  </p>
+                </NavLink>
+
+                <NavLink
+                  to="/dashboard/feedback"
+                  onClick={toggleDrawer}
+                  className={({ isActive }) =>
+                    `block py-1 mx-12 ${
+                      isActive ? "bg-[#6F42C1] text-white" : "text-black"
+                    } rounded-xl text-center font-medium`
+                  }
+                >
+                  <p className="mb-4 flex items-center justify-center pt-3 gap-1">
+                    <span>
+                      <FaEnvelopeOpenText />
+                    </span>{" "}
+                    Messages
+                  </p>
+                </NavLink>
+              </>
+            )}
             {/* Render links based on role (similar to desktop) */}
           </div>
         </div>
