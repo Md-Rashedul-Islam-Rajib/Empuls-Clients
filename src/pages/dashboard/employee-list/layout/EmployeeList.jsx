@@ -20,31 +20,23 @@ const EmployeeList = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm();
 
-
-
-  const {mutate: handleSalary } = usePayment(paymentinfo);
+  const { mutate: handleSalary } = usePayment(paymentinfo);
 
   const onSubmit = async (data) => {
-    console.log(data)
-      setPaymentinfo(data);
-    if(selectedUserid){
-      handleSalary( selectedUserid);
-      
-   console.log(selectedUserid,data)
-      document.getElementById('item?._id').close();
-   }
+    setPaymentinfo(data);
+    if (selectedUserid) {
+      handleSalary(selectedUserid);
+      document.getElementById("item?._id").close();
+    }
   };
 
   const { mutate: handleVerify } = useVerification();
   const handleVerification = (_id) => {
     handleVerify(_id);
   };
-
-
-  
 
   const { data: filterUser = [] } = useQuery({
     queryKey: ["employee-list"],
@@ -54,12 +46,12 @@ const EmployeeList = () => {
     },
   });
 
-  const userInfo = filterUser.filter(item=>item.role !== "admin" );
+  const userInfo = filterUser.filter((item) => item.role !== "admin");
 
   return (
-    <div>
-      <div>
-        <table className="table table-xs table-auto overflow-x-auto">
+    <div className="p-4 md:p-8">
+      <div className="overflow-x-auto">
+        <table className="table table-xs w-full">
           <thead>
             <tr>
               <th>Name</th>
@@ -84,7 +76,7 @@ const EmployeeList = () => {
                       onClick={() => {
                         handleVerification(item?._id);
                       }}
-                      className="text-red-600"
+                      className="text-red-600 cursor-pointer"
                     />
                   )}
                 </td>
@@ -94,50 +86,43 @@ const EmployeeList = () => {
                   <span className="px-3 py-1 font-semibold rounded-md bg-violet-400 text-gray-900">
                     {item?.isVerified ? (
                       <>
-                        
                         <button
-                          onClick={() =>{
+                          onClick={() => {
                             setSelectedUserid(item._id);
-                            document.getElementById('item?._id').showModal();
-                          }
-                          }
+                            document.getElementById("item?._id").showModal();
+                          }}
+                          className="cursor-pointer"
                         >
                           Pay
                         </button>
-                        {/* modal */}
+                        {/* Modal */}
                         <dialog
-                          id={'item?._id'}
+                          id={"item?._id"}
                           className="modal modal-bottom sm:modal-middle"
                         >
-                          <div className="modal-box ">
+                          <div className="modal-box">
                             <form onSubmit={handleSubmit(onSubmit)}>
-                                 <div className="">
-                                 <label className="input flex items-center">
-                                    Email:
-                                    <input
-                                      value={item.email}
-                                      type="email"
-                                      className="grow"
-                                      {...register("email", {
-                                        required: true,
-                                      })}
-                                    />
-                                  </label>
-                                 </div>
-                                  
-                                
-                                
-
-
-                              <div className="flex gap-4">
-                                <div className="w-32">
+                              <div className="">
+                                <label className="input flex items-center">
+                                  Email:
+                                  <input
+                                    value={item.email}
+                                    type="email"
+                                    className="grow"
+                                    {...register("email", {
+                                      required: true,
+                                    })}
+                                  />
+                                </label>
+                              </div>
+                              <div className="flex flex-col md:flex-row gap-4">
+                                <div className="w-full md:w-1/3">
                                   <label className="input flex items-center">
                                     Salary:
                                     <input
                                       value={item.salary}
                                       type="number"
                                       className="grow"
-
                                       {...register("salary", {
                                         required: true,
                                       })}
@@ -150,9 +135,9 @@ const EmployeeList = () => {
                                   )}
                                 </div>
 
-                                <div className="flex-1">
+                                <div className="w-full md:w-1/3">
                                   <select
-                                    className="input input-ghost"
+                                    className="input input-ghost w-full"
                                     {...register("month", { required: true })}
                                   >
                                     <option>Select a month</option>
@@ -175,30 +160,29 @@ const EmployeeList = () => {
                                     </span>
                                   )}
                                 </div>
-                                <div className="w-20">
-                                  <label className="input input-bordered flex items-center ">
+
+                                <div className="w-full md:w-1/3">
+                                  <label className="input input-bordered flex items-center">
                                     <input
                                       type="number"
-                                      className="bg-white w-10"
+                                      className="bg-white w-full"
                                       placeholder="Year"
                                       {...register("year")}
                                     />
                                   </label>
-                                  
                                 </div>
                               </div>
-                              <div className="flex justify-center">
-                              <button
-                                type="submit"
-                                className="btn btn-sm bg-[#6F42C1] text-white"
-                              >
-                                Pay Now
-                              </button>
+                              <div className="flex justify-center mt-4">
+                                <button
+                                  type="submit"
+                                  className="btn btn-sm bg-[#6F42C1] text-white"
+                                >
+                                  Pay Now
+                                </button>
                               </div>
                             </form>
                             <div className="modal-action">
                               <form method="dialog">
-                                {/* if there is a button in form, it will close the modal */}
                                 <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
                                   <RxCross2 />
                                 </button>
@@ -208,13 +192,17 @@ const EmployeeList = () => {
                         </dialog>
                       </>
                     ) : (
-                      <button disabled>Pay</button>
+                      <button disabled className="cursor-not-allowed">
+                        Pay
+                      </button>
                     )}
                   </span>
                 </td>
                 <td>
                   <span className="px-3 py-1 font-semibold rounded-md bg-[#6F42C1] text-white">
-                    <Link to={`details/${item?.email}`}><span>Details</span></Link>
+                    <Link to={`details/${item?.email}`}>
+                      <span>Details</span>
+                    </Link>
                   </span>
                 </td>
               </tr>
@@ -222,125 +210,8 @@ const EmployeeList = () => {
           </tbody>
         </table>
       </div>
-      <div>
-      {/* <form onSubmit={handleSubmit(onSubmit)}>
-                              
-                             
-                              <label className="input flex items-center">
-                                Name: 
-                                    <input
-                                      // value={item?.name}
-                                      type="text"
-                                      className="w-36"
-                                      {...register("name", {
-                                        required: true,
-                                      })}
-                                    />
-                                  </label>
-
-
-                                 <div className="">
-                                 <label className="input flex items-center">
-                                    Email:
-                                    <input
-                                      // value={item?.email}
-                                      type="email"
-                                      className="grow"
-                                      {...register("email", {
-                                        required: true,
-                                      })}
-                                    />
-                                  </label>
-                                 </div>
-                                  
-                                
-                                <label className="input flex items-center">
-                                    Employee Id :
-                                    <input
-                                      // defaultValue={item?._id}
-                                      type="text"
-                                      className="grow"
-                                      {...register("employeeId", {
-                                        required: true,
-                                      })}
-                                    />
-                                  </label>
-
-
-                              <div className="flex gap-4">
-                                <div className="w-32">
-                                  <label className="input flex items-center">
-                                    Salary:
-                                    <input
-                                      // value={item?.salary}
-                                      type="number"
-                                      className="grow"
-
-                                      {...register("salary", {
-                                        required: true,
-                                      })}
-                                    />
-                                  </label>
-                                  {errors.salary && (
-                                    <span className="text-red-600 text-sm">
-                                      Salary is required
-                                    </span>
-                                  )}
-                                </div>
-
-                                <div className="flex-1">
-                                  <select
-                                    className="input input-ghost"
-                                    {...register("month", { required: true })}
-                                  >
-                                    <option>Select a month</option>
-                                    <option value="january">January</option>
-                                    <option value="february">February</option>
-                                    <option value="march">March</option>
-                                    <option value="april">April</option>
-                                    <option value="may">May</option>
-                                    <option value="june">June</option>
-                                    <option value="july">July</option>
-                                    <option value="august">August</option>
-                                    <option value="september">September</option>
-                                    <option value="october">October</option>
-                                    <option value="november">November</option>
-                                    <option value="december">December</option>
-                                  </select>
-                                  {errors.month && (
-                                    <span className="text-red-600 text-sm">
-                                      Month is required
-                                    </span>
-                                  )}
-                                </div>
-                                <div className="w-20">
-                                  <label className="input input-bordered flex items-center ">
-                                    <input
-                                      type="number"
-                                      className="bg-white w-10"
-                                      placeholder="Year"
-                                      {...register("year")}
-                                    />
-                                  </label>
-                                  
-                                </div>
-                              </div>
-                              <div className="flex justify-center">
-                              <button
-                                type="submit"
-                                className="btn btn-sm bg-[#6F42C1] text-white"
-                              >
-                                Pay Now
-                              </button>
-                              </div>
-                            </form> */}
-      </div>
     </div>
   );
 };
 
 export default EmployeeList;
-
-{
-  /* Open the modal using document.getElementById('ID').showModal() method */
-}
