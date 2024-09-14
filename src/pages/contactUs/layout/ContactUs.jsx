@@ -14,95 +14,99 @@ const ContactUs = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-   
-      axiosPublic.post("/messages",data)
-      .then((res)=> {
-          if (res.data.insertedId){
-            reset()
-              Swal.fire({
-                  position: "center",
-                  icon: "success",
-                  title: "Your message has been send",
-                  showConfirmButton: false,
-                  timer: 1500
-                });
-          }
-      })
-    };
+    axiosPublic.post("/messages", data).then((res) => {
+      if (res.data.insertedId) {
+        reset();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Your message has been sent",
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
+    });
+  };
 
   return (
     <div
       className="py-20"
       style={{ backgroundImage: "url(/Contactus.jpg)" }}
     >
-      <div className="text-white flex flex-col lg:flex-row size-full ">
-        <div className="flex flex-col justify-center text-center lg:text-start lg: ml-60">
-          <h2 className="text-4xl font-bold">Contact Us</h2>
+      <div className="text-white flex flex-col lg:flex-row size-full px-4 lg:px-20 gap-10">
+        {/* Contact Info Section */}
+        <div className="flex flex-col justify-center text-center lg:text-start">
+          <h2 className="text-4xl font-bold mb-6">Contact Us</h2>
 
-          <div>
-            <div className="flex items-center gap-2 text-xl font-medium my-2 justify-center lg:justify-normal">
+          <div className="mb-4">
+            <div className="flex items-center gap-2 text-xl font-medium mb-1 justify-center lg:justify-start">
               <span>
                 <BsFillTelephoneFill />
               </span>{" "}
-              Call Us{" "}
+              Call Us
             </div>
-            <p>1 (234) 567-891, 1 (234) 987 654</p>
+            <p className="text-sm lg:text-base">1 (234) 567-891, 1 (234) 987 654</p>
           </div>
 
-          <div>
-            <div className="flex items-center gap-2 text-xl font-medium my-2 justify-center lg:justify-normal">
+          <div className="mb-4">
+            <div className="flex items-center gap-2 text-xl font-medium mb-1 justify-center lg:justify-start">
               <span>
                 <IoLocationSharp />
               </span>{" "}
               Location
             </div>
-            <p>121 Rock Street, 21 Avenue, New York, NY 92103</p>
+            <p className="text-sm lg:text-base">
+              121 Rock Street, 21 Avenue, New York, NY 92103
+            </p>
           </div>
 
-          <div>
-            <div className="flex items-center gap-2 text-xl font-medium my-2 justify-center lg:justify-normal">
+          <div className="mb-4">
+            <div className="flex items-center gap-2 text-xl font-medium mb-1 justify-center lg:justify-start">
               <span>
                 <IoMdTime />
               </span>{" "}
-              Business Hours{" "}
+              Business Hours
             </div>
-            <p>Mon-Fri.....10am-8pm, sat,sun.....closed</p>
+            <p className="text-sm lg:text-base">
+              Mon-Fri: 10am-8pm, Sat-Sun: Closed
+            </p>
           </div>
         </div>
 
-        <div className="flex-1 flex items-center justify-center mt-4">
-          <form onSubmit={handleSubmit(onSubmit)}>
+        {/* Contact Form Section */}
+        <div className="flex-1 flex items-center justify-center">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="w-full max-w-lg bg-white p-6 rounded-lg shadow-lg"
+          >
             <div className="flex flex-col gap-4 mb-4">
-                <p>Email</p>
-                <label className="input input-bordered flex items-center gap-2 ">
+              <label className="text-gray-700">Email</label>
               <input
-                type="text"
-                className="grow"
+                type="email"
+                className="input input-bordered w-full p-2 rounded-md"
                 placeholder="Enter Your Email"
                 {...register("email", { required: true })}
               />
-            </label>
+              {errors.email && (
+                <p className="text-red-600 text-sm">Email is required</p>
+              )}
             </div>
-            {errors.email && (
-              <p className="text-red-600 text-sm">Email is required</p>
-            )}
-            
-              <div className="flex flex-col gap-3 mb-4">
-                <p>Message</p>
-                <textarea
-                type="text"
-                className="textarea text-black"
+
+            <div className="flex flex-col gap-4 mb-4">
+              <label className="text-gray-700">Message</label>
+              <textarea
+                className="textarea textarea-bordered w-full p-2 rounded-md"
                 placeholder="Enter Your Message"
                 {...register("message", { required: true })}
               />
-              </div>
-            
-            {errors.message && (
-              <p className="text-red-600 text-sm">Message is required</p>
-            )}
-                <div>
-                <button className="btn bg-[#6F42C1] text-white w-full border-0">Submit</button>
-                </div>
+              {errors.message && (
+                <p className="text-red-600 text-sm">Message is required</p>
+              )}
+            </div>
+
+            <button className="btn bg-[#6F42C1] text-white w-full border-0 py-2">
+              Submit
+            </button>
           </form>
         </div>
       </div>
