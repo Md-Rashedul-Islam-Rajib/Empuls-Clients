@@ -20,18 +20,21 @@ const EmployeeList = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-    reset
+    formState: { errors }
   } = useForm();
 
+
+
   const {mutate: handleSalary } = usePayment(paymentinfo);
+
   const onSubmit = async (data) => {
-setPaymentinfo(data);
+    console.log(data)
+      setPaymentinfo(data);
     if(selectedUserid){
       handleSalary( selectedUserid);
       
    console.log(selectedUserid,data)
-      document.getElementById("my_modal_5").close();
+      document.getElementById('item?._id').close();
    }
   };
 
@@ -91,11 +94,11 @@ setPaymentinfo(data);
                   <span className="px-3 py-1 font-semibold rounded-md bg-violet-400 text-gray-900">
                     {item?.isVerified ? (
                       <>
-                        {" "}
+                        
                         <button
                           onClick={() =>{
                             setSelectedUserid(item._id);
-                            document.getElementById("my_modal_5").showModal();
+                            document.getElementById('item?._id').showModal();
                           }
                           }
                         >
@@ -103,24 +106,11 @@ setPaymentinfo(data);
                         </button>
                         {/* modal */}
                         <dialog
-                          id="my_modal_5"
+                          id={'item?._id'}
                           className="modal modal-bottom sm:modal-middle"
                         >
                           <div className="modal-box ">
                             <form onSubmit={handleSubmit(onSubmit)}>
-                              {/* <h3 className="font-bold text-lg">{item.name}</h3> */}
-                             
-                              <label className="input flex items-center">
-                                Name: 
-                                    <input
-                                      value={item.name}
-                                      type="text"
-                                      className="w-36"
-                                      {...register("name", {
-                                        required: true,
-                                      })}
-                                    />
-                                  </label>
                                  <div className="">
                                  <label className="input flex items-center">
                                     Email:
@@ -136,17 +126,9 @@ setPaymentinfo(data);
                                  </div>
                                   
                                 
-                                <label className="input flex items-center">
-                                    Employee Id :
-                                    <input
-                                      defaultValue={item._id}
-                                      type="text"
-                                      className="grow"
-                                      {...register("employeeId", {
-                                        required: true,
-                                      })}
-                                    />
-                                  </label>
+                                
+
+
                               <div className="flex gap-4">
                                 <div className="w-32">
                                   <label className="input flex items-center">
@@ -199,14 +181,10 @@ setPaymentinfo(data);
                                       type="number"
                                       className="bg-white w-10"
                                       placeholder="Year"
-                                      {...register("year", { required: true })}
+                                      {...register("year")}
                                     />
                                   </label>
-                                  {errors.year && (
-                                    <span className="text-red-600 text-sm">
-                                      Year is required
-                                    </span>
-                                  )}
+                                  
                                 </div>
                               </div>
                               <div className="flex justify-center">
@@ -243,6 +221,119 @@ setPaymentinfo(data);
             ))}
           </tbody>
         </table>
+      </div>
+      <div>
+      {/* <form onSubmit={handleSubmit(onSubmit)}>
+                              
+                             
+                              <label className="input flex items-center">
+                                Name: 
+                                    <input
+                                      // value={item?.name}
+                                      type="text"
+                                      className="w-36"
+                                      {...register("name", {
+                                        required: true,
+                                      })}
+                                    />
+                                  </label>
+
+
+                                 <div className="">
+                                 <label className="input flex items-center">
+                                    Email:
+                                    <input
+                                      // value={item?.email}
+                                      type="email"
+                                      className="grow"
+                                      {...register("email", {
+                                        required: true,
+                                      })}
+                                    />
+                                  </label>
+                                 </div>
+                                  
+                                
+                                <label className="input flex items-center">
+                                    Employee Id :
+                                    <input
+                                      // defaultValue={item?._id}
+                                      type="text"
+                                      className="grow"
+                                      {...register("employeeId", {
+                                        required: true,
+                                      })}
+                                    />
+                                  </label>
+
+
+                              <div className="flex gap-4">
+                                <div className="w-32">
+                                  <label className="input flex items-center">
+                                    Salary:
+                                    <input
+                                      // value={item?.salary}
+                                      type="number"
+                                      className="grow"
+
+                                      {...register("salary", {
+                                        required: true,
+                                      })}
+                                    />
+                                  </label>
+                                  {errors.salary && (
+                                    <span className="text-red-600 text-sm">
+                                      Salary is required
+                                    </span>
+                                  )}
+                                </div>
+
+                                <div className="flex-1">
+                                  <select
+                                    className="input input-ghost"
+                                    {...register("month", { required: true })}
+                                  >
+                                    <option>Select a month</option>
+                                    <option value="january">January</option>
+                                    <option value="february">February</option>
+                                    <option value="march">March</option>
+                                    <option value="april">April</option>
+                                    <option value="may">May</option>
+                                    <option value="june">June</option>
+                                    <option value="july">July</option>
+                                    <option value="august">August</option>
+                                    <option value="september">September</option>
+                                    <option value="october">October</option>
+                                    <option value="november">November</option>
+                                    <option value="december">December</option>
+                                  </select>
+                                  {errors.month && (
+                                    <span className="text-red-600 text-sm">
+                                      Month is required
+                                    </span>
+                                  )}
+                                </div>
+                                <div className="w-20">
+                                  <label className="input input-bordered flex items-center ">
+                                    <input
+                                      type="number"
+                                      className="bg-white w-10"
+                                      placeholder="Year"
+                                      {...register("year")}
+                                    />
+                                  </label>
+                                  
+                                </div>
+                              </div>
+                              <div className="flex justify-center">
+                              <button
+                                type="submit"
+                                className="btn btn-sm bg-[#6F42C1] text-white"
+                              >
+                                Pay Now
+                              </button>
+                              </div>
+                            </form> */}
       </div>
     </div>
   );

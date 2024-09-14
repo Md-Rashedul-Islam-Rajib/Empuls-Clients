@@ -344,26 +344,8 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* <div className="flex">
-
-        <div className="max-w-80 min-h-screen bg-[#E9ECEF]">
-          <div className="p-6">
-            <Link to="/dashboard/work-sheet">
-              <p>Work Sheet</p>
-            </Link>
-            <Link to="/dashboard/payment-history">
-              <p>Payment History</p>
-            </Link>
-            <Link to="/dashboard/employee-list">
-              <p>Employee List</p>
-            </Link>
-          </div>
-        </div>
-
-        <div className="flex-1">
-          <Outlet></Outlet>
-        </div>
-      </div> */}
+      
+    
       <Footer></Footer>
     </div>
   );
