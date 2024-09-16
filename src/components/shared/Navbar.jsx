@@ -10,7 +10,9 @@ import { axiosPublic } from '../../hooks/useAxiosPublic';
 const Navbar = () => {
   const {user, logOutUser} = useContext(AuthContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDropdownMobileOpen, setIsDropdownMobileOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const dropdownMobileRef = useRef(null);
 
   const { data: userInfo = [] } = useQuery({
     queryKey: ['navbar', user?.email],
