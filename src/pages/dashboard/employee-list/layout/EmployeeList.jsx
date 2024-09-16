@@ -14,23 +14,24 @@ import { Link } from "react-router-dom";
 const EmployeeList = () => {
   const { user } = useContext(AuthContext);
   const axiosPublic = useAxiosPublic();
-  const [selectedUserid, setSelectedUserid] = useState(null);
-  const [paymentinfo, setPaymentinfo] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(null); // Stores the selected user info
   const [isTableView, setIsTableView] = useState(true); // Toggle state for desktop
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset, // This will reset the form when modal closes
   } = useForm();
 
-  const { mutate: handleSalary } = usePayment(paymentinfo);
+  const { mutate: handleSalary } = usePayment();
 
   const onSubmit = async (data) => {
-    setPaymentinfo(data);
-    if (selectedUserid) {
-      handleSalary(selectedUserid);
-      document.getElementById("item?._id").close();
+    if (selectedUser) {
+      const paymentinfo = { ...data, email: selectedUser.email };
+      handleSalary(paymentinfo);
+      document.getElementById("payModal").close(); // Close modal after submit
+      reset(); // Reset form fields
     }
   };
 
@@ -49,6 +50,12 @@ const EmployeeList = () => {
 
   const userInfo = filterUser.filter((item) => item.role !== "admin");
 
+  // Open the modal with selected user's data
+  const openPayModal = (user) => {
+    setSelectedUser(user); // Set the selected user
+    document.getElementById("payModal").showModal(); // Open the modal
+  };
+
   return (
     <div className="p-4 md:p-8">
       {/* Toggle Button for Desktop */}
@@ -64,7 +71,7 @@ const EmployeeList = () => {
       {/* Table View (Only for Desktop) */}
       {isTableView && (
         <div className="overflow-x-auto hidden lg:block">
-          <table className="table table-lg w-full">
+          <table className="table table-xs w-full">
             <thead>
               <tr>
                 <th>Name</th>
@@ -96,127 +103,22 @@ const EmployeeList = () => {
                   <td>{item?.bank_account_no ? item?.bank_account_no : "N/A"}</td>
                   <td>{item?.salary ? item?.salary : "N/A"}</td>
                   <td>
-                    <span className="px-3 py-1 font-semibold rounded-md bg-violet-400 text-gray-900">
-                      {item?.isVerified ? (
-                        <>
-                          <button
-                            onClick={() => {
-                              setSelectedUserid(item._id);
-                              document.getElementById("item?._id").showModal();
-                            }}
-                            className="cursor-pointer"
-                          >
-                            Pay
-                          </button>
-                          {/* Modal */}
-                          <dialog
-                            id={"item?._id"}
-                            className="modal modal-bottom sm:modal-middle"
-                          >
-                            <div className="modal-box">
-                              <form onSubmit={handleSubmit(onSubmit)}>
-                                <div className="">
-                                  <label className="input flex items-center">
-                                    Email:
-                                    <input
-                                      value={item.email}
-                                      type="email"
-                                      className="grow"
-                                      {...register("email", {
-                                        required: true,
-                                      })}
-                                    />
-                                  </label>
-                                </div>
-                                <div className="flex flex-col md:flex-row gap-4">
-                                  <div className="w-full md:w-1/3">
-                                    <label className="input flex items-center">
-                                      Salary:
-                                      <input
-                                        value={item.salary}
-                                        type="number"
-                                        className="grow"
-                                        {...register("salary", {
-                                          required: true,
-                                        })}
-                                      />
-                                    </label>
-                                    {errors.salary && (
-                                      <span className="text-red-600 text-sm">
-                                        Salary is required
-                                      </span>
-                                    )}
-                                  </div>
-
-                                  <div className="w-full md:w-1/3">
-                                    <select
-                                      className="input input-ghost w-full"
-                                      {...register("month", { required: true })}
-                                    >
-                                      <option>Select a month</option>
-                                      <option value="january">January</option>
-                                      <option value="february">February</option>
-                                      <option value="march">March</option>
-                                      <option value="april">April</option>
-                                      <option value="may">May</option>
-                                      <option value="june">June</option>
-                                      <option value="july">July</option>
-                                      <option value="august">August</option>
-                                      <option value="september">September</option>
-                                      <option value="october">October</option>
-                                      <option value="november">November</option>
-                                      <option value="december">December</option>
-                                    </select>
-                                    {errors.month && (
-                                      <span className="text-red-600 text-sm">
-                                        Month is required
-                                      </span>
-                                    )}
-                                  </div>
-
-                                  <div className="w-full md:w-1/3">
-                                    <label className="input input-bordered flex items-center">
-                                      <input
-                                        type="number"
-                                        className="bg-white w-full"
-                                        placeholder="Year"
-                                        {...register("year")}
-                                      />
-                                    </label>
-                                  </div>
-                                </div>
-                                <div className="flex justify-center mt-4">
-                                  <button
-                                    type="submit"
-                                    className="btn btn-sm bg-[#6F42C1] text-white"
-                                  >
-                                    Pay Now
-                                  </button>
-                                </div>
-                              </form>
-                              <div className="modal-action">
-                                <form method="dialog">
-                                  <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-                                    <RxCross2 />
-                                  </button>
-                                </form>
-                              </div>
-                            </div>
-                          </dialog>
-                        </>
-                      ) : (
-                        <button disabled className="cursor-not-allowed">
-                          Pay
-                        </button>
-                      )}
-                    </span>
+                    <button
+                      onClick={() => openPayModal(item)} // Open modal for selected row
+                      className={`btn btn-sm bg-[#6F42C1] text-white ${
+                        item.isVerified ? "" : "cursor-not-allowed"
+                      }`}
+                      disabled={!item.isVerified}
+                    >
+                      Pay
+                    </button>
                   </td>
                   <td>
-                    <span className="px-3 py-1 font-semibold rounded-md bg-[#6F42C1] text-white">
-                      <Link to={`details/${item?.email}`}>
-                        <span>Details</span>
-                      </Link>
-                    </span>
+                    <Link to={`details/${item?.email}`}>
+                      <span className="btn btn-sm bg-violet-400 text-gray-900">
+                        Details
+                      </span>
+                    </Link>
                   </td>
                 </tr>
               ))}
@@ -227,7 +129,7 @@ const EmployeeList = () => {
 
       {/* Grid View (Always for Tablet & Mobile, optionally for Desktop) */}
       <div
-        className={`grid gap-4 grid-cols-1 lg:grid-cols-3 ${
+        className={`grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ${
           isTableView ? "lg:hidden" : "lg:grid"
         }`}
       >
@@ -252,15 +154,11 @@ const EmployeeList = () => {
             </p>
             <div className="flex gap-2 mt-2">
               <button
-                onClick={() => {
-                  if (item.isVerified) {
-                    setSelectedUserid(item._id);
-                    document.getElementById("item?._id").showModal();
-                  }
-                }}
+                onClick={() => openPayModal(item)} // Open modal for grid card
                 className={`btn btn-sm bg-[#6F42C1] text-white ${
-                  item.isVerified ? "cursor-pointer" : "cursor-not-allowed"
+                  item.isVerified ? "" : "cursor-not-allowed"
                 }`}
+                disabled={!item.isVerified}
               >
                 Pay
               </button>
@@ -271,6 +169,87 @@ const EmployeeList = () => {
           </div>
         ))}
       </div>
+
+      {/* Pay Modal */}
+      <dialog id="payModal" className="modal modal-bottom sm:modal-middle">
+        <div className="modal-box">
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div>
+              <label className="input flex items-center">
+                Email:
+                <input
+                  value={selectedUser?.email || ""}
+                  type="email"
+                  readOnly
+                  className="grow"
+                />
+              </label>
+            </div>
+            <div className="flex flex-col md:flex-row gap-4">
+              <div className="w-full md:w-1/3">
+                <label className="input flex items-center">
+                  Salary:
+                  <input
+                    defaultValue={selectedUser?.salary || ""}
+                    type="number"
+                    className="grow"
+                    {...register("salary", {
+                      required: true,
+                    })}
+                  />
+                </label>
+                {errors.salary && (
+                  <span className="text-red-600 text-sm">
+                    Salary is required
+                  </span>
+                )}
+              </div>
+
+              <div className="w-full md:w-1/3">
+                <select
+                  className="input input-ghost w-full"
+                  {...register("month", { required: true })}
+                >
+                  <option>Select a month</option>
+                  <option value="january">January</option>
+                  <option value="february">February</option>
+                  <option value="march">March</option>
+                  <option value="april">April</option>
+                  <option value="may">May</option>
+                  <option value="june">June</option>
+                  <option value="july">July</option>
+                  <option value="august">August</option>
+                  <option value="september">September</option>
+                  <option value="october">October</option>
+                  <option value="november">November</option>
+                  <option value="december">December</option>
+                </select>
+                {errors.month && (
+                  <span className="text-red-600 text-sm">
+                    Month is required
+                  </span>
+                )}
+              </div>
+            </div>
+
+            <div className="modal-action">
+              <button type="submit" className="btn">
+                Pay
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  document.getElementById("payModal").close();
+                  reset(); // Reset form when modal closes
+                }}
+                className="btn"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </dialog>
     </div>
   );
 };
