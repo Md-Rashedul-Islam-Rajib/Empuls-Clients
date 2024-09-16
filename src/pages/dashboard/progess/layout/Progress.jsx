@@ -125,7 +125,7 @@ const Progress = () => {
             {workdata?.map((item, idx) => (
               <div
                 key={idx}
-                className="card shadow-lg rounded-lg p-4 bg-white border border-gray-200"
+                className="card shadow-lg rounded-lg p-4 bg-white hover:bg-[#6f42c1] hover:text-white border border-gray-200"
               >
                 <div className="card-body">
                   <h3 className="card-title font-bold text-lg">
