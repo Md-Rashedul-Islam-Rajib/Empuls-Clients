@@ -15,7 +15,8 @@ const Progress = () => {
     setSelectedMonth(event.target.value);
   };
 
-  const { data: workdata = [] } = useQuery({
+  // Query for work data based on selected employee and month
+  const { data: workdata = [], refetch } = useQuery({
     queryKey: ["progress", selectedEmployeeEmail, selectedMonth],
     queryFn: async () => {
       const response = await axiosPublic.get(`/work-list`, {
@@ -26,8 +27,10 @@ const Progress = () => {
       });
       return response.data;
     },
+    enabled: !!selectedEmployeeEmail && !!selectedMonth, // Only run query if both are selected
   });
 
+  // Query for user list to populate the employee filter dropdown
   const { data: filterUser = [] } = useQuery({
     queryKey: ["filter"],
     queryFn: async () => {
@@ -49,12 +52,20 @@ const Progress = () => {
     };
   }, []);
 
+  // Refetch work data when filters change
+  useEffect(() => {
+    if (selectedEmployeeEmail && selectedMonth) {
+      refetch();
+    }
+  }, [selectedEmployeeEmail, selectedMonth, refetch]);
+
   return (
     <div>
       <form>
+        {/* Employee Filter */}
         <div>
           <select onChange={handleChangeEmployeeEmail}>
-            <option>Select Employee</option>
+            <option value="">Select Employee</option>
             {filterOption.map((item, idx) => (
               <option key={idx} value={item?.email}>
                 {item?.name}
@@ -62,9 +73,11 @@ const Progress = () => {
             ))}
           </select>
         </div>
+
+        {/* Month Filter */}
         <div>
           <select onChange={handleChangeMonth}>
-            <option>Select Month</option>
+            <option value="">Select Month</option>
             <option value="01">January</option>
             <option value="02">February</option>
             <option value="03">March</option>
